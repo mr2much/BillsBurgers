@@ -7,8 +7,9 @@ public class Hamburger {
     private Item tomato;
     private Item onions;
 
-    private String description;
+    String description;
     private double price;
+    int itemCount;
 
     public Hamburger(Item breadRollType, Item meatType, double price) {
         this.description = "Regular Burger";
@@ -19,18 +20,34 @@ public class Hamburger {
 
     public void addLettuce(Item lettuce) {
         this.lettuce = lettuce;
+
+        if(lettuce.getPrice() > 0) {
+            itemCount++;
+        }
     }
 
     public void addCheese(Item cheese) {
         this.cheese = cheese;
+
+        if(cheese.getPrice() > 0) {
+            itemCount++;
+        }
     }
 
     public void addTomato(Item tomato) {
         this.tomato = tomato;
+
+        if(tomato.getPrice() > 0) {
+            itemCount++;
+        }
     }
 
     public void addOnions(Item onions) {
         this.onions = onions;
+
+        if(onions.getPrice() > 0) {
+            itemCount++;
+        }
     }
 
     public double getPrice() {
@@ -75,5 +92,9 @@ public class Hamburger {
 
     public String getDescription() {
         return description;
+    }
+
+    public int getItemCount() {
+        return itemCount;
     }
 }

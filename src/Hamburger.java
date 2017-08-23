@@ -1,11 +1,11 @@
 public class Hamburger {
 
-    private Item breadRollType;
-    private Item meatType;
-    private Item lettuce;
-    private Item cheese;
-    private Item tomato;
-    private Item onions;
+    Item breadRollType;
+    Item meatType;
+    Item lettuce;
+    Item cheese;
+    Item tomato;
+    Item onions;
 
     String description;
     private double price;

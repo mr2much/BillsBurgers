@@ -29,6 +29,12 @@ public class BurgerTester {
         healthy.addGrass(noItem);
 
         System.out.println("A " + healthy.getDescription() + " with " + healthy.getItemCount() + " extras, is:");
-        System.out.format("Total amount: %.2f", healthy.getPrice());
+        System.out.format("Total amount: %.2f\n", healthy.getPrice());
+
+        DeluxeBurger deluxeBurger = new DeluxeBurger(regularBread, regularMeat, 10.00);
+
+        System.out.println("A " + deluxeBurger.getDescription() + " with " +
+                        deluxeBurger.getItemCount() + " extras, is:");
+        System.out.format("Total amount: %.2f\n", deluxeBurger.getPrice());
     }
 }

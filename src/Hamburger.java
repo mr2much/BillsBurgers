@@ -1,90 +1,68 @@
+import java.util.Arrays;
+
 public class Hamburger {
+    private Item[] additionals;
+    private BreadType breadType;
+    private MeatType meatType;
 
-    Item breadRollType;
-    Item meatType;
-    Item lettuce;
-    Item cheese;
-    Item tomato;
-    Item onions;
-
-    String description;
+    private String description;
     private double price;
-    int itemCount;
+    private int itemCount;
 
-    public Hamburger(Item breadRollType, Item meatType, double price) {
-        this.description = "Regular Burger";
-        this.breadRollType = breadRollType;
+    public Hamburger(String description, BreadType breadRollType, MeatType meatType, double price) {
+        this.description = description;
+        itemCount = 0;
+        additionals = new Item[6];
+
+        breadType = breadRollType;
         this.meatType = meatType;
         this.price = price;
     }
 
-    public void addLettuce(Item lettuce) {
-        this.lettuce = lettuce;
+    // TODO: implement the removing of items from the hamburger
+    public void addAdditional(Item item) {
+        // check if array is almost filled
+        if(itemCount >= additionals.length - 2) {
+            // double the size of the array
+            int newSize = additionals.length * 2;
 
-        if(lettuce.getPrice() > 0) {
-            itemCount++;
+            // copy all the elements from the old array to the new one
+            Item[] temp = Arrays.copyOf(additionals, newSize);
+
+            // make the old array the same as the new one
+            additionals = temp;
         }
-    }
 
-    public void addCheese(Item cheese) {
-        this.cheese = cheese;
-
-        if(cheese.getPrice() > 0) {
-            itemCount++;
-        }
-    }
-
-    public void addTomato(Item tomato) {
-        this.tomato = tomato;
-
-        if(tomato.getPrice() > 0) {
-            itemCount++;
-        }
-    }
-
-    public void addOnions(Item onions) {
-        this.onions = onions;
-
-        if(onions.getPrice() > 0) {
-            itemCount++;
-        }
+        additionals[itemCount] = item;
+        itemCount++;
     }
 
     public double getPrice() {
         double result = this.price;
         System.out.println("The base price is " + price);
-        System.out.println("The price for " + this.breadRollType.getDescription() + " is " +
-                this.breadRollType.getPrice());
-        result += this.breadRollType.getPrice();
+        System.out.println("The price for " + breadType.getDescription() + " is " +
+                    breadType.getPrice());
+        result += breadType.getPrice();
 
-        System.out.println("The price for " + this.meatType.getDescription() + " is " +
-                this.meatType.getPrice());
-        result += this.meatType.getPrice();
+        System.out.println("The price for " + meatType.getDescription() + " is " +
+                    meatType.getPrice());
 
-        if(this.lettuce.getPrice() > 0) {
-            System.out.println("The price for " + this.lettuce.getDescription() + " is " +
-                                this.lettuce.getPrice());
-            result += this.lettuce.getPrice();
-        }
+        result += meatType.getPrice();
 
-        if(this.cheese.getPrice() > 0) {
-            System.out.println("The price for " + this.cheese.getDescription() + " is " +
-                                this.cheese.getPrice());
+        result += getPriceOfAdditionals();
 
-            result += this.cheese.getPrice();
-        }
+        return result;
+    }
 
-        if(this.tomato.getPrice() > 0) {
-            System.out.println("The price for " + this.tomato.getDescription() + " is " +
-                                this.tomato.getPrice());
+    private double getPriceOfAdditionals() {
+        double result = 0;
 
-            result += this.tomato.getPrice();
-        }
-
-        if(this.onions.getPrice() > 0) {
-            System.out.println("The price for " + this.onions.getDescription() + " is " +
-                    this.onions.getPrice());
-            result += this.onions.getPrice();
+        for(Item item : additionals) {
+            if(item != null) {
+                System.out.println("The price for " + item.getDescription() + " is " +
+                        item.getPrice());
+                result += item.getPrice();
+            }
         }
 
         return result;

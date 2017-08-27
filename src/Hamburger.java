@@ -1,7 +1,8 @@
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Hamburger {
-    private Item[] additionals;
+    private List<Item> additionals;
     private BreadType breadType;
     private MeatType meatType;
 
@@ -12,7 +13,7 @@ public class Hamburger {
     public Hamburger(String description, BreadType breadRollType, MeatType meatType, double price) {
         this.description = description;
         itemCount = 0;
-        additionals = new Item[6];
+        additionals = new ArrayList<>();
 
         breadType = breadRollType;
         this.meatType = meatType;
@@ -20,35 +21,42 @@ public class Hamburger {
     }
 
     // TODO: implement the removing of items from the hamburger
+    // DONE: separate the parts of the code that don't belong in this method
+    // DONE: implement a separate "view" for the items
     public void addAdditional(Item item) {
-        // check if array is almost filled
-        if(itemCount >= additionals.length - 2) {
-            // double the size of the array
-            int newSize = additionals.length * 2;
+        additionals.add(item);
+        itemCount++;
+    }
 
-            // copy all the elements from the old array to the new one
-            Item[] temp = Arrays.copyOf(additionals, newSize);
+    public void display() {
+        // header
+        System.out.println("============================================");
+        System.out.println("\tA " + this.getDescription() + " with " + this.getItemCount() +
+                " extras, is:");
+        System.out.println("============================================");
 
-            // make the old array the same as the new one
-            additionals = temp;
+        // body
+
+        System.out.printf("\tBase price:\t\t\t\t\t$%.2f\n", price);
+        System.out.printf("\t%s:\t\t\t\t$%.2f\n", breadType.getDescription(),
+                breadType.getPrice());
+        System.out.println("The price for " + meatType.getDescription() + " is " +
+                meatType.getPrice());
+
+        for(Item item : additionals) {
+            if(item != null) {
+                System.out.println("The price for " + item.getDescription() + " is " +
+                        item.getPrice());
+            }
         }
 
-        additionals[itemCount] = item;
-        itemCount++;
     }
 
     public double getPrice() {
         double result = this.price;
-        System.out.println("The base price is " + price);
-        System.out.println("The price for " + breadType.getDescription() + " is " +
-                    breadType.getPrice());
+
         result += breadType.getPrice();
-
-        System.out.println("The price for " + meatType.getDescription() + " is " +
-                    meatType.getPrice());
-
         result += meatType.getPrice();
-
         result += getPriceOfAdditionals();
 
         return result;
@@ -59,8 +67,6 @@ public class Hamburger {
 
         for(Item item : additionals) {
             if(item != null) {
-                System.out.println("The price for " + item.getDescription() + " is " +
-                        item.getPrice());
                 result += item.getPrice();
             }
         }

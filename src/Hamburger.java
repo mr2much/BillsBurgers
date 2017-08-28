@@ -37,18 +37,20 @@ public class Hamburger {
 
         // body
 
-        System.out.printf("\tBase price:\t\t\t\t\t$%.2f\n", price);
-        System.out.printf("\t%s:\t\t\t\t$%.2f\n", breadType.getDescription(),
+        System.out.printf("\t%-30s%5.2f $\n", "Base Price:", price);
+        System.out.printf("\t%-30s%5.2f $\n", breadType.getDescription() + ":",
                 breadType.getPrice());
-        System.out.println("The price for " + meatType.getDescription() + " is " +
+        System.out.printf("\t%-30s%5.2f $\n", meatType.getDescription() + ":",
                 meatType.getPrice());
 
         for(Item item : additionals) {
             if(item != null) {
-                System.out.println("The price for " + item.getDescription() + " is " +
+                System.out.printf("\t%-30s%5.2f $\n", item.getDescription() + ":",
                         item.getPrice());
             }
         }
+
+        System.out.println("============================================");
 
     }
 

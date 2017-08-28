@@ -13,8 +13,8 @@ public class BurgerTester {
         regular.addAdditional(onions);
         displayBugerInfo(regular);
 
-        HealthyBurger healthy = new HealthyBurger(regularMeat, 50.00);
-        Item rocks = new Item("Healthy Rocks", 33.99);
+        HealthyBurger healthy = new HealthyBurger(regularMeat, 10.00);
+        Item rocks = new Item("Healthy Rocks", 13.99);
 
         healthy.addAdditional(rocks);
         displayBugerInfo(healthy);
@@ -27,6 +27,6 @@ public class BurgerTester {
 
     public static void displayBugerInfo(Hamburger burger) {
         burger.display();
-        System.out.printf("Total amount: %.2f\n", burger.getPrice());
+        System.out.printf("\t%-30s%5.2f $\n", "Total amount:", burger.getPrice());
     }
 }

@@ -1,31 +1,37 @@
+import factories.SimpleBurgerFactory;
+
+import burgers.Hamburger;
+import ingredients.extras.Bacon;
+import ingredients.extras.Coke;
+import ingredients.extras.Fries;
+
 public class BurgerTester {
 
     public static void main(String[] args) {
-        BreadType regularBread = new BreadType("Regular Bread", .10);
-        MeatType regularMeat = new MeatType("Regular Meat", .15);
-        Item onions = new Item("Onions", .05);
-        Item tomato = new Item("Tomatoes", .13);
+        SimpleBurgerFactory burgerFactory = new SimpleBurgerFactory();
+        BurgerStore regularStore = new BurgerStore(burgerFactory);
 
-        Hamburger regular = new Hamburger("Regular Burger", regularBread, regularMeat,
-                .33);
-
-        regular.addAdditional(tomato);
-        regular.addAdditional(onions);
+        Hamburger regular = regularStore.orderHamburger("regular");
+        regular.addExtra(new Bacon());
+        regular.addExtra(new Fries());
+        regular.addExtra(new Coke());
         displayBugerInfo(regular);
 
-        HealthyBurger healthy = new HealthyBurger(regularMeat, 10.00);
-        Item rocks = new Item("Healthy Rocks", 13.99);
+        System.out.println();
 
-        healthy.addAdditional(rocks);
-        displayBugerInfo(healthy);
+        regular = regularStore.orderHamburger("deluxe");
+        regular.addExtra(new Bacon());
+        displayBugerInfo(regular);
 
-        DeluxeBurger deluxeBurger = new DeluxeBurger(regularBread, regularMeat, 10.00);
+        System.out.println();
 
-        deluxeBurger.addAdditional(onions);
-        displayBugerInfo(deluxeBurger);
+        regular = regularStore.orderHamburger("veggie");
+        regular.addExtra(new Coke());
+        displayBugerInfo(regular);
     }
 
     public static void displayBugerInfo(Hamburger burger) {
+        System.out.println();
         burger.display();
         System.out.printf("\t%-30s%5.2f $\n", "Total amount:", burger.getPrice());
     }
